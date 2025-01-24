@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smash or Pass - Anime Edition</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-image: url('https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExenRvdGphYm9pZmExcXI3cGNlZDdqZ2cwMHozcGhjM2c2ajNrZG9zYiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/l3c614V12UA82q1vG/giphy.gif');
+            background-size: cover;
+            /* Cover the entire viewport */
+            background-repeat: no-repeat;
+            /* Prevents repeating the background */
+            color: white;
+            /* White text for better visibility on dark background */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        body:after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 2;
+        }
+
+        .container {
+            position: relative;
+            z-index: 3;
+            text-align: center;
+            width: 100%;
+        }
+
+        .images {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 20px;
+            width: 100%;
+            gap: 3%;
+        }
+
+        @media (max-width: 767px) {
+            .images {
+                flex-direction: column;
+            }
+        }
+
+        img {
+            width: 550px;
+            height: calc(100vh - 230px);
+            object-fit: cover;
+            border-radius: 8px;
+            border: 5px solid white;
+            /* White frame around the images */
+            margin: 0 10px;
+            /* Space between images and the "VS" image */
+        }
+
+        .middle-counter {
+            display: flex;
+            flex-direction: column;
+            gap: 0px;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .middle-counter .vs-image {
+            width: 200px;
+            height: auto;
+            border-radius: 8px;
+            border: 5px solid transparent;
+        }
+
+        .middle-counter p {
+            font-size: 35px;
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: space-around;
+        }
+
+        button {
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 300px;
+            height: 65px;
+            font-size: 35px;
+        }
+
+        .button-left {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        .button-right {
+            background-color: #f44336;
+            color: white;
+        }
+
+        button:hover {
+            opacity: 0.9;
+        }
+
+        .left-img-cont {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 30px;
+        }
+
+
+    </style>
+</head>
+
+<body>
+    <div class="container">
+
+        <h1>Pick or Kick</h1>
+        <div class="images">
+            <div class="left-img-cont">
+                <img id="leftImage" src="https://cdn.myanimelist.net/images/characters/16/385176.jpg"
+                    alt="Anime Girl 1">
+                <button class="button-left" onclick="handleChoice('left')"><i class="fa fa-arrow-left"></i> Left</button>
+            </div>
+            <div class="middle-counter">
+                <img class="vs-image" src="https://i.postimg.cc/vZRQ2yk2/ay8vcd6qu.png" alt="VS Image">
+                <p id="counter">Left: 0 | Right: 0</p>
+            </div>
+            <div class="left-img-cont">
+                <img id="rightImage" src="https://cdn.myanimelist.net/images/characters/11/318783.jpg"
+                    alt="Anime Girl 2">
+                <button class="button-right" onclick="handleChoice('right')"> Right <i class="fa fa-arrow-right"></i></button>
+            </div>
+        </div>
+        
+
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/js/all.min.js"></script>
+    <script>
+        
+        const images = [
+            ["https://i.postimg.cc/yNp4Wfk9/8d7b011c3b56dc3f6ca6e48ac60eb324.png", "https://i.postimg.cc/7hcpXbgL/HD-wallpaper-anime-jujutsu-kaise.png"],
+            ["https://s1.zerochan.net/Hyuuga.Hinata.600.3957135.jpg", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRIKGoqaUJEJixGDrPNtmpFy1iBFyc0xPZirQ&s"],
+            ["https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRIKGoqaUJEJixGDrPNtmpFy1iBFyc0xPZirQ&s", "https://i.postimg.cc/7hcpXbgL/HD-wallpaper-anime-jujutsu-kaise.png"],
+            ["https://static.wikia.nocookie.net/naruto/images/6/64/Sakura_Part_1.png/revision/latest/scale-to-width-down/1200?cb=20170726101444", "https://i.postimg.cc/7hcpXbgL/HD-wallpaper-anime-jujutsu-kaise.png"],
+            ["https://static.wikia.nocookie.net/bleach/images/c/c5/Ep320_Rukia_Mugshot.png/revision/latest/scale-to-width/360?cb=20231105191903&path-prefix=en", "https://imgcdn.stablediffusionweb.com/2024/9/6/62446819-0eee-4a4a-bcf7-2aa37b1ad79f.jpg"],
+            ["https://i.postimg.cc/7hcpXbgL/HD-wallpaper-anime-jujutsu-kaise.png", "https://i.pinimg.com/736x/a5/33/f8/a533f829077d6573d103668a810f0d68.jpg"],
+            ["https://static.wikia.nocookie.net/animeandmangauniverse/images/8/86/Episode_347_Orihime.png/revision/latest?cb=20120119105508", "https://c4.wallpaperflare.com/wallpaper/204/304/875/anime-beautiful-orihime-inoue-anime-bleach-hd-art-wallpaper-preview.jpg"],
+            ["https://i.postimg.cc/7hcpXbgL/HD-wallpaper-anime-jujutsu-kaise.png", "https://i.pinimg.com/736x/c4/eb/33/c4eb3388fe8f6dcaa8a2abbb0a48a323.jpg"],
+            ["https://i.postimg.cc/7hcpXbgL/HD-wallpaper-anime-jujutsu-kaise.png", "https://static.wikia.nocookie.net/dublagem/images/c/c9/Naruto_Uzumaki_%28Naruto%29.png/revision/latest?cb=20220828134532&path-prefix=pt-br"],
+            ["https://i.postimg.cc/7hcpXbgL/HD-wallpaper-anime-jujutsu-kaise.png", "https://i.postimg.cc/7hcpXbgL/HD-wallpaper-anime-jujutsu-kaise.pngg"],
+        ];
+
+        let currentIndex = 0;
+        const counters = { left: 0, right: 0 };
+
+        function updateImages() {
+            if (currentIndex < images.length) {
+                document.getElementById('leftImage').src = images[currentIndex][0];
+                document.getElementById('rightImage').src = images[currentIndex][1];
+            } else {
+                document.querySelector('.container').innerHTML = `<h2>Game Over!</h2><p>Left: ${counters.left} | Right: ${counters.right}</p>`;
+            }
+        }
+
+        function handleChoice(choice) {
+            if (choice === 'left' || choice === 'right') {
+                counters[choice]++;
+                currentIndex++;
+                document.getElementById('counter').textContent = `Left: ${counters.left} | Right: ${counters.right}`;
+                updateImages();
+            }
+        }
+
+        updateImages();
+    </script>
+</body>
+
+</html>
